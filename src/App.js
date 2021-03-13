@@ -9,7 +9,7 @@ function App({ store }) {
     let onClick = (e) => {
         alert(tmp);
     };
-    return <Word store={store} />;
+    return <Word />;
 }
 
 export default App;

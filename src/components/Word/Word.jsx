@@ -1,26 +1,41 @@
 import { enterWordCreateAction } from "../../redux/word-reduser"
+import { connect } from "react-redux";
 
-function Word(props) {
-    let tmp;
-    let onChange = (e) => {
-        tmp = e.target.value;
-    };
-    let onClick = (e) => {
-        alert(tmp);
-    };
-    let outWord = props.store.getState().word.tmpWord;
+const Word = (props) => {
+
+    let outWord = props.tmpWord;
+
     let setTmpWord = (e) => {
         let tmpWord = e.target.value
+
+        // console.log(outWord);
         // debugger;
-        props.store.dispatch(enterWordCreateAction(tmpWord));
+        props.enterWord(tmpWord);
     }
+    // debugger;
     return (
         <div className="Word">
             <input onChange={setTmpWord} placeholder="enter word" />
-            <button onClick={onClick}>Send</button>
+            <button >Send</button>
             <h1>{outWord}</h1>
         </div>
     );
 }
 
-export default Word;
+let mapStateToProps = (state) => {
+    return {
+        tmpWord: state.word.tmpWord
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        enterWord: (tmpWord) => {
+            dispatch(enterWordCreateAction(tmpWord));
+        }
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Word);
