@@ -1,11 +1,10 @@
-import { enterWordCreateAction } from "../../redux/word-reduser"
-import { connect } from "react-redux";
 import s from "../../components/Word/Word.module.css"
-
 import Button from '@material-ui/core/Button';
-
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { connect } from "react-redux";
+import { enterWordCreateAction } from "../../redux/word-reduser";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
 const Word = (props) => {
     let outWord = props.tmpWord;
 
-    if (!props.tmpWord) {
-        outWord = "Enter Word";
-    }
+    // if (!props.tmpWord) {
+    //     outWord = "Enter Word";
+    // }
 
     let setTmpWord = (e) => {
         let tmpWord = e.target.value
@@ -37,23 +36,27 @@ const Word = (props) => {
     const classes = useStyles();
     return (
         <div className={s.wordWrap}>
-            {/* <input onChange={setTmpWord} placeholder="enter word" /> */}
-            <h1 className={s.word}>{outWord}</h1>
+            <div className={classes.root}>
+                <div>
 
-            <TextField
-                onChange={setTmpWord}
-                id="standard-full-width"
-                label="Label"
-                style={{ margin: 8 }}
-                placeholder="Placeholder"
-                // helperText="Full width!"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-            />
-            <Button variant="contained" color="primary">Send</Button>
+                    {/* <input onChange={setTmpWord} placeholder="enter word" /> */}
+                    <h1 className={s.word}>{outWord}</h1>
+                    <TextField
+                        onChange={setTmpWord}
+                        id="standard-full-width"
+                        label="Label"
+                        style={{ margin: 8 }}
+                        placeholder="Placeholder"
+                        // helperText="Full width!"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                    <Button variant="contained" color="primary">Send</Button>
+                </div>
+            </div>
         </div>
     );
 }

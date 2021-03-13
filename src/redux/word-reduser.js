@@ -3,7 +3,7 @@ const ENTER_WORD = "ENTER_WORD";
 let initialState = {
     words: [{ id: 0, value: "first word" }],
     currentWord: "hi",
-    tmpWord: "",
+    tmpWord: "Enter Word or Phrases",
 };
 const wordReducer = (state = initialState, action) => {
     switch (action.type) {
