@@ -5,6 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import { connect } from "react-redux";
 import { enterWordCreateAction } from "../../redux/word-reduser";
 
+import react, { useState } from "react";
+
+import { useSpeechSynthesis } from 'react-speech-kit';
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,30 +24,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Word = (props) => {
+    const [value, setValue] = useState('');
+
+    const { speak } = useSpeechSynthesis();
+
     let outWord = props.tmpWord;
-
-    // if (!props.tmpWord) {
-    //     outWord = "Enter Word";
-    // }
-
-    let setTmpWord = (e) => {
-        let tmpWord = e.target.value
-
-        // console.log(outWord);
-        // debugger;
-        props.enterWord(tmpWord);
+    // let speechTyping;
+    let toSpeakOnClick = (e) => {
+        let speechTyping = () => {
+            // alert(tmpWord);
+            return speak({ text: value });
+        };
+        speechTyping();
     }
-    // debugger;
+    let setValueRedux = (e) => {
+        props.enterWord(e.target.value);
+        setValue(e.target.value)
+    };
+
+
     const classes = useStyles();
     return (
         <div className={s.wordWrap}>
             <div className={classes.root}>
                 <div>
-
-                    {/* <input onChange={setTmpWord} placeholder="enter word" /> */}
                     <h1 className={s.word}>{outWord}</h1>
                     <TextField
-                        onChange={setTmpWord}
+                        onChange={setValueRedux}
                         id="standard-full-width"
                         label="Label"
                         style={{ margin: 8 }}
@@ -54,7 +62,7 @@ const Word = (props) => {
                             shrink: true,
                         }}
                     />
-                    <Button variant="contained" color="primary">Send</Button>
+                    <Button onClick={toSpeakOnClick} variant="contained" color="primary">Send</Button>
                 </div>
             </div>
         </div>
